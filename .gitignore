@@ -7,3 +7,4 @@ dist/
 build/
 database/**           # local DB artifacts
 *.log
+**/.env
