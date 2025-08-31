@@ -1,0 +1,159 @@
+# =============================================================================
+# Settings
+# ============================================================================
+
+@baseUrl = http://localhost:3000
+### Paste your token here after login
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhMSIsImlhdCI6MTc1MzEyNDI0NywiZXhwIjoxNzUzMTI3ODQ3fQ.mu0plJQYaZgIUn6CeaxkOvLNEIe5kQ1dGxBNZGHq0AA
+
+# =============================================================================
+# Users
+# =============================================================================
+
+### Credentials
+@username = a4
+@password = pass1
+
+### Register
+POST {{baseUrl}}/api/user/register
+Content-Type: application/json
+
+{
+  "username": "{{username}}",
+  "password": "{{password}}"
+}
+
+### Login
+POST {{baseUrl}}/api/user/login
+Content-Type: application/json
+
+{
+  "username": "{{username}}",
+  "password": "{{password}}"
+}
+
+### Get all users
+GET {{baseUrl}}/api/user/all-users
+Cookie: token={{token}}
+
+### Get user
+@getUserId = 1
+GET {{baseUrl}}/api/user/{{getUserId}}
+Cookie: token={{token}}
+
+### Get username
+@getUserId = 2
+GET {{baseUrl}}/api/user/username/{{getUserId}}
+Cookie: token={{token}}
+
+### Get user avatar
+@avatarOfUserId = 1
+GET {{baseUrl}}/api/user/avatar/{{avatarOfUserId}}
+Cookie: token={{token}}
+
+# =============================================================================
+# Invitations
+# =============================================================================
+
+### Create a new tournament invitation
+@tournamentSenderId = 1
+@tournamentRecipientIds = [2, 3, 4]
+
+POST {{baseUrl}}/api/invitations
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "senderId": "{{tournamentSenderId}}",
+  "recipientIds": {{tournamentRecipientIds}},
+  "type": "tournament"
+}
+
+
+### Create a new match invitation
+@matchSenderId = 1
+@matchRecipientId = [2]
+
+POST {{baseUrl}}/api/invitations
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "senderId": "{{matchSenderId}}",
+  "recipientIds": {{matchRecipientId}},
+  "type": "match"
+}
+
+### Create a new friendship invitation
+@friendshipSenderId = 1
+@friendshipRecipientId = [2]
+
+
+POST {{baseUrl}}/api/invitations
+Content-Type: application/json
+Cookie: token={{token}}
+
+{
+  "senderId": "{{friendshipSenderId}}",
+  "recipientId": {{friendshipRecipientId}},
+  "type": "friendship"
+}
+
+### Accept an invitation
+@acceptInvitationId = 1
+POST {{baseUrl}}/api/invitations/{{acceptInvitationId}}/accept
+Content-Type: application/json
+Cookie: token={{token}}
+
+{}
+
+### Decline an invitation
+@declineInvitationId = 2
+POST {{baseUrl}}/api/invitations/{{declineInvitationId}}/decline
+Content-Type: application/json
+Cookie: token={{token}}
+
+### Get all invitations (admin/test only)
+GET {{baseUrl}}/api/invitations
+Cookie: token={{token}}
+
+### Get invitations for authenticated user
+GET {{baseUrl}}/api/invitations/user
+Cookie: token={{token}}
+
+### Get invitation by ID
+@getInvitationId = 3
+GET {{baseUrl}}/api/invitations/{{{getInvitationId}}}
+Cookie: token={{token}}
+
+
+# =============================================================================
+# Notifications
+# =============================================================================
+
+### Get unread notifications for user
+@notificationOfUserId = 1
+GET {{baseUrl}}/api/notifications
+x-user-id: {{notificationOfUserId}}
+Cookie: token={{token}}
+
+# =============================================================================
+# Match
+# =============================================================================
+
+### Get all finished matches
+GET {{baseUrl}}/api/match
+
+### Get stats for a specific user
+@statsOfUserId = 10
+GET {{baseUrl}}/api/match/stats/{{statsOfUserId}}
+
+
+# =============================================================================
+# Tournament
+# =============================================================================
+
+### Get alias
+@aliasOfUserId = 2
+GET {{baseUrl}}/api/tournament/alias/{{aliasOfUserId}}
+Cookie: token={{token}}
