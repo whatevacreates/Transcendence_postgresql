@@ -2,7 +2,7 @@
 # Settings
 # ============================================================================
 
-@baseUrl = https://<cloud-run-service-url>
+@baseUrl = https://transcendence-back-923872734712.europe-west6.run.app
 ### Run the Login request below to populate the token dynamically
 
 # =============================================================================
