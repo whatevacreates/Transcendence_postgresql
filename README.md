@@ -49,3 +49,11 @@ curl -X POST http://localhost:3000/api/match/<MATCH_ID>/control \
     -d '{"userId":1,"control":"move-paddle-up"}'
 
 curl -X GET http://localhost:3000/api/match/<MATCH_ID>/state
+
+# API testing
+
+The file `test/api/api.http` uses placeholders for the base URL and authentication token.
+
+- Replace `@baseUrl` with the URL of your deployed service (for example, `https://<cloud-run-service-url>`) or configure it via an environment variable supported by your HTTP client.
+- Run the **Login** request to store the JWT from the response cookies; subsequent requests automatically include `Cookie: token={{token}}`.
+
