@@ -2,7 +2,7 @@
 # Settings
 # ============================================================================
 
-@baseUrl = http://localhost:3000
+@baseUrl = https://transcendence-web-923872734712.europe-west6.run.app
 ### Paste your token here after login
 @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhMSIsImlhdCI6MTc1MzEyNDI0NywiZXhwIjoxNzUzMTI3ODQ3fQ.mu0plJQYaZgIUn6CeaxkOvLNEIe5kQ1dGxBNZGHq0AA
 

@@ -45,16 +45,22 @@ class ServerFastify {
     this.#port = port;
     this.#databasePath = databasePath;
 
-    this.#frontendDistPath = path.resolve(__dirname, frontendDistPath);
+    const safeDist = frontendDistPath ? frontendDistPath : ".";
+    this.#frontendDistPath = path.resolve(__dirname, safeDist);
   }
 
   async start() {
     // origin address for CORS dependant on prod or dev mode. 
-    const originAddress = process.env.RUN_MODE === "dev"
-        ? `http://${process.env.SERVER_PUBLIC_HOST}:${process.env.SERVER_PORT}`
-        : 'https://localhost:8443';
+    // const originAddress = process.env.RUN_MODE === "dev"
+    //     ? `http://${process.env.SERVER_PUBLIC_HOST}:${process.env.SERVER_PORT}`
+    //     : 'https://localhost:8443';
 
-    console.log("origin Address in Fastify Server: ", originAddress);
+
+    const originAddress = process.env.RUN_MODE === "dev"
+  ? `http://${process.env.SERVER_PUBLIC_HOST}:${process.env.SERVER_PORT}`
+  : process.env.FRONTEND_ORIGIN;
+
+    console.log("-----origin Address in Fastify Server: ", originAddress);
 
     // --- Create Fastify instance ---
     const fastify = Fastify();
@@ -63,6 +69,7 @@ class ServerFastify {
     await fastify.register(fastifyWebsocket);
     await fastify.register(fastifyCookie);
     //await fastify.register(fastifyBcrypt);
+
     await fastify.register(fastifyJwt, {
       secret: process.env.JWT_SECRET,
       cookie: {

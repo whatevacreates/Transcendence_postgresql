@@ -20,7 +20,7 @@
   },
   "scripts": {
     "migrate": "rm -f database/database.sqlite && node migrate.js",
-    "dev": "nodemon server.js",
+    "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "clean": "rm -f database/database.sqlite"
   },

@@ -1,30 +1,21 @@
-# #development dockerfile: 
-# FROM node:20 AS build
 
-# WORKDIR /app
-
-# CMD ["npm", "run", "dev"]
-
-# production dockerfile : 
-
-# --- Stage 1: Build the frontend container (only build stage, is discarded when nginx gets running) ---
-
+# --- Build stage ---
 FROM node:20 AS build
-
 WORKDIR /app
 
-COPY package*.json ./
+# use root context paths
+COPY frontend/package*.json ./
 RUN npm install --legacy-peer-deps
 
-COPY . .
+COPY frontend/ .
 RUN npm run build
 
-
-# --- Stage 2: Export built files to NGINX (runtime container, it copies only the compiled files (nginx/html/*)) ---
-
+# --- Runtime stage ---
 FROM nginx:stable-alpine
-
 COPY --from=build /app/dist /usr/share/nginx/html
+
+# copy nginx config from parent folder
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
