@@ -7,12 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { BACKEND_URL } from "../config.js";
 function fetchWithLog(input, init) {
     return __awaiter(this, void 0, void 0, function* () {
-        const url = typeof input === "string" ? input : input.url;
+        const path = typeof input === "string" ? input : input.url;
+        const url = `${BACKEND_URL}${path}`;
         const method = (init === null || init === void 0 ? void 0 : init.method) || "GET";
         console.log("[FETCH]", method, url);
-        const response = yield fetch(input, init);
+        const response = yield fetch(url, init);
         if (!response.ok) {
             const status = response.status;
             const logMethod = status >= 400 && status < 600 ? console.warn : console.error;

@@ -1,3 +1,4 @@
+import { BACKEND_URL } from "../shared/config.js";
 class WebsocketManager {
     constructor(url) {
         this.socket = null;
@@ -23,9 +24,10 @@ class WebsocketManager {
             // console.warn("WebsocketManager: user not set; websocket connection skipped");
             return;
         }
-        const protocol = window.location.protocol === "https:" ? "wss" : "ws";
+        const backend = new URL(BACKEND_URL);
+        const protocol = backend.protocol === "https:" ? "wss" : "ws";
         const cleanedUrl = this.url.startsWith("/") ? this.url.slice(1) : this.url;
-        this.socket = new WebSocket(`${protocol}://${window.location.host}/${cleanedUrl}`);
+        this.socket = new WebSocket(`${protocol}://${backend.host}/${cleanedUrl}`);
         // console.log("WebsocketManager: websocket now connected to:", `${protocol}://${window.location.host}/${cleanedUrl}`);
         this.socket.addEventListener("open", () => {
             this.connected = true;
