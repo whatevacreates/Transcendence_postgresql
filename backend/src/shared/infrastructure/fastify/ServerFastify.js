@@ -52,7 +52,7 @@ class ServerFastify {
     // origin address for CORS dependant on prod or dev mode. 
     const originAddress = process.env.RUN_MODE === "dev"
         ? `http://${process.env.SERVER_PUBLIC_HOST}:${process.env.SERVER_PORT}`
-        : 'https://localhost:8443';
+        : process.env.FRONTEND_URL;
 
     console.log("origin Address in Fastify Server: ", originAddress);
 

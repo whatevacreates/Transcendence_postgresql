@@ -1,12 +1,14 @@
 import User from "../interface/User.js";
 import Message from "../interface/Message.js";
+import { BACKEND_URL } from "../config.js";
 
 async function fetchWithLog(input: RequestInfo, init?: RequestInit): Promise<Response> {
-  const url = typeof input === "string" ? input : input.url;
+  const path = typeof input === "string" ? input : input.url;
+  const url = `${BACKEND_URL}${path}`;
   const method = init?.method || "GET";
   console.log("[FETCH]", method, url);
 
-  const response = await fetch(input, init);
+  const response = await fetch(url, init);
 
   if (!response.ok) {
     const status = response.status;

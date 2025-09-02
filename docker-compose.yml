@@ -42,6 +42,8 @@ services:
     volumes:
       - ./database:/database
     env_file: ./.env
+    environment:
+      - FRONTEND_URL=https://transcendence-web-923872734712.europe-west6.run.app
     profiles:
       - prod
     networks:
@@ -68,6 +70,8 @@ services:
       - ./frontend/dist:/app/frontend/dist
       - ./database:/database
     env_file: ./.env
+    environment:
+      - FRONTEND_URL=https://transcendence-web-923872734712.europe-west6.run.app
     profiles:
       - dev
     networks:
