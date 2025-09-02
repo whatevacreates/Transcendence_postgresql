@@ -49,3 +49,18 @@ curl -X POST http://localhost:3000/api/match/<MATCH_ID>/control \
     -d '{"userId":1,"control":"move-paddle-up"}'
 
 curl -X GET http://localhost:3000/api/match/<MATCH_ID>/state
+
+# Deployment
+
+The application is available on Google Cloud Run:
+
+- Frontend: https://transcendence-web-923872734712.europe-west6.run.app
+- Backend/API: https://transcendence-back-923872734712.europe-west6.run.app
+
+# API testing
+
+The file `test/api/api.http` targets the deployed backend.
+
+- `@baseUrl` is set to `https://transcendence-back-923872734712.europe-west6.run.app`.
+- Run the **Login** request to store the JWT from the response cookies; subsequent requests automatically include `Cookie: token={{token}}`.
+
